@@ -1,7 +1,7 @@
 import '@geoman-io/leaflet-geoman-free'
 import { useLayoutEffect, useEffect, useState } from 'react'
-// import { useLeafletContext } from '@react-leaflet/core'
-import { useLeafletContext } from 'react-leaflet'
+import { useLeafletContext } from '@react-leaflet/core'
+// import { useLeafletContext } from 'react-leaflet'
 import type { LayerGroup } from 'leaflet'
 
 import type { GeomanProps } from './types'
