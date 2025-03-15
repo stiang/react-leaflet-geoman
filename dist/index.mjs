@@ -1,13 +1,6 @@
 import "@geoman-io/leaflet-geoman-free";
-import { createContext, use, useState, useLayoutEffect, useEffect } from "react";
-const LeafletContext = createContext(null);
-function useLeafletContext() {
-  const context = use(LeafletContext);
-  if (context == null) {
-    throw new Error("No context provided: useLeafletContext() can only be used in a descendant of <MapContainer>");
-  }
-  return context;
-}
+import { useState, useLayoutEffect, useEffect } from "react";
+import { useLeafletContext } from "react-leaflet";
 function globalEvents(map, handlers, method) {
   if (handlers.onGlobalCutModeToggled) {
     map[method]("pm:globalcutmodetoggled", handlers.onGlobalCutModeToggled);

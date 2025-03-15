@@ -1,15 +1,7 @@
 (function(global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require("@geoman-io/leaflet-geoman-free"), require("react")) : typeof define === "function" && define.amd ? define(["exports", "@geoman-io/leaflet-geoman-free", "react"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global["react-leaflet-geoman"] = {}, null, global.require$$0));
-})(this, function(exports2, leafletGeomanFree, require$$0) {
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require("@geoman-io/leaflet-geoman-free"), require("react"), require("react-leaflet")) : typeof define === "function" && define.amd ? define(["exports", "@geoman-io/leaflet-geoman-free", "react", "react-leaflet"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global["react-leaflet-geoman"] = {}, null, global.react, global.reactLeaflet));
+})(this, function(exports2, leafletGeomanFree, react, reactLeaflet) {
   "use strict";
-  const LeafletContext = require$$0.createContext(null);
-  function useLeafletContext() {
-    const context = require$$0.use(LeafletContext);
-    if (context == null) {
-      throw new Error("No context provided: useLeafletContext() can only be used in a descendant of <MapContainer>");
-    }
-    return context;
-  }
   function globalEvents(map, handlers, method) {
     if (handlers.onGlobalCutModeToggled) {
       map[method]("pm:globalcutmodetoggled", handlers.onGlobalCutModeToggled);
@@ -229,15 +221,15 @@
     "onDragDisable"
   ];
   function GeomanControls({ options = {}, globalOptions = {}, pathOptions = {}, lang = "en", eventDebugFn, onMount, onUnmount, ...handlers }) {
-    const [mounted, setMounted] = require$$0.useState(false);
-    const [handlersRef, setHandlersRef] = require$$0.useState(process.env.NODE_ENV === "development" ? handlers : {});
-    const { map, layerContainer } = useLeafletContext();
+    const [mounted, setMounted] = react.useState(false);
+    const [handlersRef, setHandlersRef] = react.useState(process.env.NODE_ENV === "development" ? handlers : {});
+    const { map, layerContainer } = reactLeaflet.useLeafletContext();
     const container = layerContainer || map;
     if (!container) {
       console.warn("[GEOMAN-CONTROLS] No map or container instance found");
       return null;
     }
-    require$$0.useLayoutEffect(() => {
+    react.useLayoutEffect(() => {
       if (!map.pm.controlsVisible()) {
         map.pm.addControls(options);
         if (onMount)
@@ -259,19 +251,19 @@
         setMounted(false);
       };
     }, []);
-    require$$0.useEffect(() => {
+    react.useEffect(() => {
       if (mounted)
         map.pm.setPathOptions(pathOptions);
     }, [pathOptions, mounted]);
-    require$$0.useEffect(() => {
+    react.useEffect(() => {
       if (mounted)
         map.pm.setGlobalOptions({ layerGroup: container, ...globalOptions });
     }, [globalOptions, mounted]);
-    require$$0.useEffect(() => {
+    react.useEffect(() => {
       if (mounted)
         map.pm.setLang(lang);
     }, [lang, mounted]);
-    require$$0.useEffect(() => {
+    react.useEffect(() => {
       if (mounted) {
         const withDebug = Object.fromEntries(reference.map((handler) => {
           var _a;
